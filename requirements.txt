@@ -4,3 +4,6 @@ joblib
 fastapi
 requests
 uvicorn
+langgraph
+langchain
+openai
