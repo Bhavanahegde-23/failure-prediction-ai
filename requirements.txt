@@ -7,3 +7,7 @@ uvicorn
 langgraph
 langchain
 openai
+langchain_community
+langchain
+langchain-core
+langchain-ollama
