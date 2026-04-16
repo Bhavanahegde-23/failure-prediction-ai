@@ -11,3 +11,4 @@ langchain_community
 langchain
 langchain-core
 langchain-ollama
+streamlit

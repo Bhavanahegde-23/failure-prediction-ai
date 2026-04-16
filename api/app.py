@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import joblib
 import pandas as pd
+from predAgent import graph
 
 app = FastAPI()
 
@@ -30,3 +31,18 @@ def predict(data:dict):
         }
     except Exception as e:
         return {"error":str(e)}
+
+@app.post("/get_answer")
+def get_answer(data: dict):
+
+    # CALL LANGGRAPH
+    result = graph.invoke({"input": data})
+
+    # RETURN FULL REPORT
+    return {
+        "probability": round(result["prob"], 2),
+        "risk_level": result["action"],
+        "root_cause": result["root_cause"],
+        "summary": result["summary"],
+        "explanation": result["explain"]
+    }
