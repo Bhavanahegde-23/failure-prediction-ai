@@ -36,7 +36,7 @@ class State(TypedDict):
     summary:str
 
 #Get prediction
-#TODO: add the confidence
+##TODO: add the confidence
 def predict_node(state):
     data = state["input"]
 
@@ -48,7 +48,6 @@ def predict_node(state):
 
     return state
 
-# Step 2: Decision node
 # Decision node
 def decision_node(state):
     prob = state["prob"]
