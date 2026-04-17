@@ -10,6 +10,8 @@ st.title("🔧 Self-Healing AIOps System")
 # ---------------- INPUT ----------------
 st.subheader("📥 Input Machine Data")
 
+with st.popover("Select Type"):
+    type_= st.radio("Type", ["L", "M", "H"])
 air_temp = st.slider("Air Temperature (K)", 290, 350, 320)
 process_temp = st.slider("Process Temperature (K)", 300, 360, 330)
 rpm = st.slider("Rotational Speed (rpm)", 1000, 3500, 2000)
@@ -17,6 +19,7 @@ torque = st.slider("Torque (Nm)", 10, 100, 50)
 tool_wear = st.slider("Tool Wear (min)", 0, 300, 100)
 
 input_data = {
+    "Type":type_,
     "Air temperature [K]": air_temp,
     "Process temperature [K]": process_temp,
     "Rotational speed [rpm]": rpm,

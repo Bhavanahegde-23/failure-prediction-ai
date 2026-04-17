@@ -17,6 +17,9 @@ llm = ChatOllama(model="llama3")
 
 #Failure
 failure_map = {
+    "temp_diff": "Heat Dissipation Issue",
+    "power": "Overstrain Failure",
+    "wear_rate": "Tool Degradation",
     "TWF": "Tool Wear Failure",
     "HDF": "Heat Dissipation Issue",
     "PWF": "Power Failure",
@@ -39,7 +42,6 @@ class State(TypedDict):
 ##TODO: add the confidence
 def predict_node(state):
     data = state["input"]
-
     res = requests.post(API_URL , json=data)
     result = res.json()
 
@@ -168,11 +170,27 @@ graph = builder.compile()
 # Run
 if __name__ == "__main__":
     sample = {
+        # safe
+        # "Type" : "M",
+        # "Air temperature [K]": 300,
+        # "Process temperature [K]": 310,
+        # "Rotational speed [rpm]": 1500,
+        # "Torque [Nm]": 40,
+        # "Tool wear [min]": 50
+        #moderate
+        # "Type":"M",
+        # "Air temperature [K]": 320,
+        # "Process temperature [K]": 330,
+        # "Rotational speed [rpm]": 2500,
+        # "Torque [Nm]": 70,
+        # "Tool wear [min]": 200
+        "Type": "M",
         "Air temperature [K]": 330,
         "Process temperature [K]": 340,
         "Rotational speed [rpm]": 3000,
-        "Torque [Nm]": 80,
+        "Torque [Nm]": 85,
         "Tool wear [min]": 250
+
     }
 
     graph.invoke({"input": sample})

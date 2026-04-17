@@ -18,8 +18,22 @@ def predict(data:dict):
     try:
         df = pd.DataFrame([data])
 
+        # clean data
+        df.columns = (
+            df.columns
+            .str.replace(r"[^\w\s]", "", regex=True)
+            .str.strip()
+            .str.replace(" ", "_")
+        )
+        #
+        # # feature eng
+        # df["temp_diff"] = df["Process_temperature_K"] - df["Air_temperature_K"]
+        # df["power"] = df["Torque_Nm"] * df["Rotational_speed_rpm"]
+        # df["wear_rate"] = df["Tool_wear_min"] / (df["Tool_wear_min"].max() + 1)
+        df["stress_index"] = df["Torque_Nm"] * df["Tool_wear_min"]
+        print(df)
         df = pd.get_dummies(df)
-
+        print("COLUMNS USED BY MODEL:", col)
         df = df.reindex(columns=col , fill_value=0)
 
         prediction = model.predict(df)[0]
